@@ -1,0 +1,24 @@
+# videos (incl. third-party clip used only for local testing)
+*.mp4
+# model masks / intermediates tied to that clip
+masks*.npz
+# working frames + top-level image copies (curated versions live in results/)
+/feas_frame.png
+/feas_busy.png
+/frame0_grid.png
+/pick_subject.png
+/shots.png
+/samples.png
+/transform_demo.png
+/payoff.png
+/overlay_check.png
+/everything.png
+/dense_busy.png
+/phase2.png
+/pipeline_demo.png
+# runtime
+static/
+data/
+__pycache__/
+*.pyc
+.DS_Store
