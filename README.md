@@ -53,6 +53,13 @@ blue**), holding through movement + occlusion. No clicking:
 
 ![color by name](results/phase3.png)
 
+**8. Part-level: human parsing (Phase 4)** — split a person into **hair / skin /
+shirt** with a SegFormer clothes-parser, then color each part separately (**shirt
+red, hair brown, skin tinted**). Rough on low-contrast B&W (model trained on
+color), cleaner on color footage — but part-level control the detector can't give:
+
+![human parsing](results/phase4.png)
+
 ---
 
 ## The engine (how the pieces fit)
