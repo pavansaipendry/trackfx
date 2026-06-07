@@ -24,3 +24,5 @@ __pycache__/
 .DS_Store
 /phase3.png
 labels.json
+/bugfix_recolor.png
+color_by_name.mp4

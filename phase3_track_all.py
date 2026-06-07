@@ -97,8 +97,15 @@ def main():
     json.dump([{"label": o["label"], "conf": o["conf"]} for o in objs],
               open("labels.json", "w"))
 
-    # --- labeled overlay video ---
-    import imageio.v2 as imageio
+    print("saved masks_all.npz, labels.json")
+
+    # --- labeled overlay video (best-effort; masks above are the real output) ---
+    try:
+        import imageio.v2 as imageio
+    except ImportError:
+        print("(skip overlay video: imageio not installed — `pip install imageio "
+              "imageio-ffmpeg`)")
+        return
     cols = [np.random.default_rng(i + 3).integers(70, 255, 3) for i in range(len(objs))]
     wtr = imageio.get_writer("track_all.mp4", fps=fps, codec="libx264",
                              macro_block_size=None, ffmpeg_log_level="error",
@@ -119,7 +126,7 @@ def main():
                             tuple(int(c) for c in cols[oi]), 2, cv2.LINE_AA)
         wtr.append_data(cv2.cvtColor(fr, cv2.COLOR_BGR2RGB))
     wtr.close()
-    print("saved masks_all.npz, labels.json, track_all.mp4")
+    print("saved track_all.mp4")
 
 
 if __name__ == "__main__":

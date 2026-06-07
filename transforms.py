@@ -18,13 +18,17 @@ def _m(mask):
     return mask.astype(bool) if mask.dtype != bool else mask
 
 
-def recolor(frame, mask, hue, sat_scale=1.0):
+def recolor(frame, mask, hue, sat_scale=1.0, min_sat=120):
     """Change the object's color to `hue` (0-179, OpenCV HSV) while keeping its
-    original brightness/shading — e.g. red car -> blue car, recolor a shirt."""
+    original brightness/shading — e.g. red car -> blue car, recolor a shirt.
+
+    On color footage this scales existing saturation; `min_sat` is a floor so the
+    color is still visible on near-grayscale regions (otherwise recolor is a
+    silent no-op on B&W, since hue is meaningless at zero saturation)."""
     m = _m(mask)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV).astype(np.float32)
     hsv[..., 0][m] = hue
-    hsv[..., 1][m] = np.clip(hsv[..., 1][m] * sat_scale, 0, 255)
+    hsv[..., 1][m] = np.clip(np.maximum(hsv[..., 1][m] * sat_scale, min_sat), 0, 255)
     return cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2BGR)
 
 
