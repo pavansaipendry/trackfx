@@ -47,6 +47,12 @@ path to coloring **by name**:
 
 ![recognize](results/phase2.png)
 
+**7. Color by name, tracked (Phase 3)** — auto-detect `person(0.94)` + `car(0.93)`
+→ SAM 2 video-tracks both across all frames → recolor by label (**car red, person
+blue**), holding through movement + occlusion. No clicking:
+
+![color by name](results/phase3.png)
+
 ---
 
 ## The engine (how the pieces fit)

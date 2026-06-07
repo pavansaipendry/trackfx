@@ -22,3 +22,5 @@ data/
 __pycache__/
 *.pyc
 .DS_Store
+/phase3.png
+labels.json
