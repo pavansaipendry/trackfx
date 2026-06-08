@@ -86,12 +86,16 @@ free** (no GPU) — so the web UI re-renders any color in ~1s.
 | `phase2_detect_segment.py` | YOLO-World → SAM 2 recognize+segment (GPU) |
 | `ARCHITECTURE.md` | full import-the-stack design + roadmap |
 
-## Run the web UI (local)
+## Run the studio (local, interactive)
 ```bash
 pip install flask opencv-python numpy imageio imageio-ffmpeg
-# supply your own clip.mp4 (+ optional SAM 2 masks.npz), then:
+# needs a clip + its tracked objects (masks_all.npz + labels.json from
+# phase3_track_all.py), then:
 python app.py            # http://localhost:5001
 ```
+The studio lists each detected/tracked object with a **color picker** — pick a
+color per object, hit **Render**, and the recolored video appears. Detection +
+tracking run offline on a GPU; editing is instant here because masks are cached.
 The GPU scripts (`sam2_*.py`, `phase2_*.py`) run on a CUDA box (e.g. a rented
 A100); masks are cached and pulled back so editing stays local.
 
